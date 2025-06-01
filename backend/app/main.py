@@ -20,8 +20,8 @@ logger = logging.getLogger(__name__)
 
 # Get environment variables with defaults
 PORT = int(os.getenv("PORT", 8000))
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 
 app = FastAPI(
     title="Sambhar API",
@@ -30,9 +30,15 @@ app = FastAPI(
 )
 
 # Configure CORS
+origins = [
+    FRONTEND_URL,  # Production frontend URL
+    "http://localhost:5173",  # Development frontend URL
+    "https://sambhar-frontend.vercel.app",  # Vercel deployment URL
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],  # Frontend URL from environment
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

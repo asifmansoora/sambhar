@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sambhar"
+version = "1.0.0"
+description = "Data profiling and analysis application"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Asif Mansoor", email = "asifmansoor.a@gmail.com"},
+]
+
+[tool.setuptools]
+packages = ["app"] 

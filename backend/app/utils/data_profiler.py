@@ -28,10 +28,10 @@ class DataProfiler:
             np.uint32, np.uint64)):
             return int(obj)
         elif isinstance(obj, (np.float_, np.float16, np.float32, np.float64)):
-            if np.isnan(obj):
+            if np.isnan(obj) or pd.isna(obj):
                 return None
             elif np.isinf(obj):
-                return float('inf') if obj > 0 else float('-inf')
+                return str(obj)  # Convert infinity to string representation
             return float(obj)
         elif isinstance(obj, (np.bool_)):
             return bool(obj)
@@ -49,7 +49,9 @@ class DataProfiler:
             return obj.isoformat()
         elif pd.isna(obj):
             return None
-        return obj
+        elif isinstance(obj, (complex, np.complex64, np.complex128)):
+            return str(obj)
+        return str(obj) if not isinstance(obj, (str, int, float, bool, type(None))) else obj
 
     def _ensure_json_serializable(self, obj: Any) -> Any:
         """Ensure an object is JSON serializable by testing it."""

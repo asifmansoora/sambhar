@@ -14,14 +14,21 @@ from app.utils.data_profiler import DataProfiler
 from app.utils.file_handler import FileHandler
 from app.schemas.responses import ProfileResponse, VisualizationResponse
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
 # Get environment variables with defaults
 PORT = int(os.getenv("PORT", 8000))
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "https://sambhar-frontend.vercel.app")  # Default to production URL
+
+# Configure logging to show more details
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# Log environment details
+logger.info(f"Starting server with PORT={PORT}, ENVIRONMENT={ENVIRONMENT}")
+logger.info(f"FRONTEND_URL={FRONTEND_URL}")
 
 app = FastAPI(
     title="Sambhar API",
@@ -41,6 +48,7 @@ origins = [
 
 # Remove any empty strings from origins
 origins = [origin for origin in origins if origin]
+logger.info(f"Configured CORS origins: {origins}")
 
 app.add_middleware(
     CORSMiddleware,
@@ -127,4 +135,5 @@ async def generate_visualization(
 
 if __name__ == "__main__":
     import uvicorn
+    logger.info(f"Starting uvicorn server on port {PORT}")
     uvicorn.run(app, host="0.0.0.0", port=PORT) 

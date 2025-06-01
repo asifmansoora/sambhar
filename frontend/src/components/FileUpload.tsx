@@ -1,6 +1,5 @@
 import { Group, Text, useMantineTheme } from '@mantine/core';
 import { Dropzone } from '@mantine/dropzone';
-import type { FileWithPath } from '@mantine/dropzone';
 import { IconUpload, IconX, IconFile } from '@tabler/icons-react';
 
 interface FileUploadProps {

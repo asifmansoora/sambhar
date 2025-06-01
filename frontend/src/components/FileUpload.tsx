@@ -1,6 +1,6 @@
-import { Group, Text, useMantineTheme } from '@mantine/core';
+import { Group, Text, useMantineTheme, Stack, rem } from '@mantine/core';
 import { Dropzone } from '@mantine/dropzone';
-import { IconUpload, IconX, IconFile } from '@tabler/icons-react';
+import { IconUpload, IconX, IconFile, IconCheck } from '@tabler/icons-react';
 
 interface FileUploadProps {
   onFileUpload: (file: File) => void;
@@ -21,34 +21,50 @@ export function FileUpload({ onFileUpload }: FileUploadProps) {
         'application/vnd.ms-excel': ['.xls'],
         'application/parquet': ['.parquet'],
       }}
+      style={{
+        borderWidth: rem(2),
+        backgroundColor: theme.white,
+      }}
     >
       <Group justify="center" gap="xl" style={{ minHeight: 220, pointerEvents: 'none' }}>
         <Dropzone.Accept>
-          <IconUpload
-            size="3.2rem"
+          <IconCheck
+            size={rem(50)}
             stroke={1.5}
             color={theme.colors[theme.primaryColor][6]}
+            style={{ transition: 'transform 200ms ease' }}
           />
         </Dropzone.Accept>
         <Dropzone.Reject>
           <IconX
-            size="3.2rem"
+            size={rem(50)}
             stroke={1.5}
             color={theme.colors.red[6]}
+            style={{ transition: 'transform 200ms ease' }}
           />
         </Dropzone.Reject>
         <Dropzone.Idle>
-          <IconFile size="3.2rem" stroke={1.5} />
+          <IconUpload 
+            size={rem(50)} 
+            stroke={1.5}
+            style={{ 
+              transition: 'transform 200ms ease',
+              color: theme.colors.gray[6]
+            }}
+          />
         </Dropzone.Idle>
 
-        <div>
-          <Text size="xl" inline>
-            Drag files here or click to select
+        <Stack gap="xs" style={{ maxWidth: rem(400) }}>
+          <Text size="xl" fw={700} ta="center">
+            Drop your data file here
           </Text>
-          <Text size="sm" c="dimmed" inline mt={7}>
-            Upload your data file (CSV, Excel, Parquet, or JSON) - Max size 100MB
+          <Text size="sm" c="dimmed" ta="center">
+            Drag and drop your file or click to browse. We support CSV, Excel, Parquet, and JSON formats.
           </Text>
-        </div>
+          <Text size="xs" c="dimmed" ta="center">
+            Maximum file size: 100MB
+          </Text>
+        </Stack>
       </Group>
     </Dropzone>
   );

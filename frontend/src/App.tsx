@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Container, Title, LoadingOverlay, Alert } from '@mantine/core'
+import { Container, Title, LoadingOverlay, Alert, Paper, Box, Text, AppShell } from '@mantine/core'
 import { FileUpload } from './components/FileUpload'
 import { DataProfile } from './components/DataProfile'
 import axios from 'axios'
@@ -56,31 +56,45 @@ function App() {
   }
 
   return (
-    <Container size="xl" py="xl">
-      <Title order={1} mb="xl">Data Profiling and Analysis</Title>
-      
-      <div style={{ position: 'relative' }}>
-        <LoadingOverlay visible={loading} />
-        
-        {error && (
-          <Alert title="Error" color="red" mb="md">
-            {error}
-          </Alert>
-        )}
+    <AppShell
+      header={{ height: 60 }}
+      padding="md"
+    >
+      <AppShell.Header>
+        <Box px="md" style={{ height: '60px', display: 'flex', alignItems: 'center' }}>
+          <Title order={2} c="blue">Sambhar</Title>
+          <Text size="sm" ml="md" c="dimmed">Data Profiling and Analysis Tool</Text>
+        </Box>
+      </AppShell.Header>
 
-        <FileUpload onFileUpload={handleFileUpload} />
+      <AppShell.Main>
+        <Container size="xl" py="xl">
+          <Paper shadow="xs" p="xl" mb="xl" radius="md">
+            <Box pos="relative">
+              <LoadingOverlay visible={loading} />
+              
+              {error && (
+                <Alert title="Error" color="red" mb="md">
+                  {error}
+                </Alert>
+              )}
 
-        {profileData && (
-          <div style={{ marginTop: '2rem' }}>
-            <DataProfile
-              profile={profileData.profile}
-              visualizations={profileData.visualizations}
-              summary={profileData.summary}
-            />
-          </div>
-        )}
-      </div>
-    </Container>
+              <FileUpload onFileUpload={handleFileUpload} />
+            </Box>
+          </Paper>
+
+          {profileData && (
+            <Box mt="xl">
+              <DataProfile
+                profile={profileData.profile}
+                visualizations={profileData.visualizations}
+                summary={profileData.summary}
+              />
+            </Box>
+          )}
+        </Container>
+      </AppShell.Main>
+    </AppShell>
   )
 }
 

@@ -1,0 +1,11 @@
+date,product,sales,price,category
+2023-01-01,Product A,100,29.99,Electronics
+2023-01-02,Product B,150,19.99,Clothing
+2023-01-03,Product C,75,49.99,Electronics
+2023-01-04,Product A,120,29.99,Electronics
+2023-01-05,Product B,200,19.99,Clothing
+2023-01-06,Product D,50,39.99,Home
+2023-01-07,Product C,90,49.99,Electronics
+2023-01-08,Product A,110,29.99,Electronics
+2023-01-09,Product B,180,19.99,Clothing
+2023-01-10,Product D,60,39.99,Home 

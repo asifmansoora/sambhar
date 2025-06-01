@@ -14,8 +14,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "env": {
-    "VITE_API_URL": "@railway_backend_url"
-  }
+  ]
 } 

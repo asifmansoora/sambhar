@@ -36,6 +36,7 @@ origins = [
     "https://sambhar-frontend.vercel.app",  # Vercel deployment URL
     "https://sambhar-frontend-git-main.vercel.app",  # Vercel preview URL
     "https://sambhar-frontend-*.vercel.app",  # Vercel branch preview URLs
+    "https://*.vercel.app"  # Any Vercel app
 ]
 
 app.add_middleware(
@@ -45,6 +46,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Add health check endpoint
+@app.get("/health")
+async def health_check():
+    return {"status": "healthy"}
 
 @app.get("/")
 async def root():

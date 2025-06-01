@@ -34,6 +34,8 @@ origins = [
     FRONTEND_URL,  # Production frontend URL
     "http://localhost:5173",  # Development frontend URL
     "https://sambhar-frontend.vercel.app",  # Vercel deployment URL
+    "https://sambhar-frontend-git-main.vercel.app",  # Vercel preview URL
+    "https://sambhar-frontend-*.vercel.app",  # Vercel branch preview URLs
 ]
 
 app.add_middleware(

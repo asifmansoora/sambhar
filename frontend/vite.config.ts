@@ -8,9 +8,15 @@ export default defineConfig(({ mode }) => {
   
   return {
     plugins: [react()],
+    base: '/', // Ensure base URL is set correctly
     build: {
       outDir: 'dist',
-      sourcemap: true
+      sourcemap: true,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined
+        }
+      }
     },
     server: {
       port: 5173,

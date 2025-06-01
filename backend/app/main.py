@@ -40,22 +40,33 @@ app = FastAPI(
 origins = [
     FRONTEND_URL,  # Production frontend URL
     "http://localhost:5173",  # Development frontend URL
-    "https://sambhar-frontend.vercel.app",  # Vercel deployment URL
-    "https://sambhar-frontend-git-main.vercel.app",  # Vercel preview URL
-    "https://sambhar-frontend-*.vercel.app",  # Vercel branch preview URLs
-    "https://*.vercel.app"  # Any Vercel app
+    "https://sambhar-88lre93rr-asif-mansoors-projects.vercel.app",
+    "https://sambhar-frontend.vercel.app",
+    "https://sambhar-frontend-git-main.vercel.app",
+    "https://sambhar-frontend-*.vercel.app",
+    "https://*.vercel.app"
 ]
 
-# Remove any empty strings from origins
-origins = [origin for origin in origins if origin]
+# Remove any empty strings and duplicates from origins
+origins = list(set([origin for origin in origins if origin]))
 logger.info(f"Configured CORS origins: {origins}")
+
+# Add CORS middleware with more detailed logging
+@app.middleware("http")
+async def log_requests(request, call_next):
+    logger.info(f"Incoming request: {request.method} {request.url}")
+    logger.info(f"Request headers: {request.headers}")
+    response = await call_next(request)
+    logger.info(f"Response status: {response.status_code}")
+    return response
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # Temporarily allow all origins for debugging
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 # Add health check endpoint

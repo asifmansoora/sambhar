@@ -1,6 +1,6 @@
 import { Group, Text, useMantineTheme, Stack, rem } from '@mantine/core';
 import { Dropzone } from '@mantine/dropzone';
-import { IconUpload, IconX, IconFile, IconCheck } from '@tabler/icons-react';
+import { IconUpload, IconX, IconCheck } from '@tabler/icons-react';
 
 interface FileUploadProps {
   onFileUpload: (file: File) => void;

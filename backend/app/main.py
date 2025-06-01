@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 # Get environment variables with defaults
 PORT = int(os.getenv("PORT", 8000))
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://sambhar-frontend.vercel.app")  # Default to production URL
 
 app = FastAPI(
     title="Sambhar API",
@@ -38,6 +38,9 @@ origins = [
     "https://sambhar-frontend-*.vercel.app",  # Vercel branch preview URLs
     "https://*.vercel.app"  # Any Vercel app
 ]
+
+# Remove any empty strings from origins
+origins = [origin for origin in origins if origin]
 
 app.add_middleware(
     CORSMiddleware,
